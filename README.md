@@ -1,2 +1,2 @@
-# pool-playdate
-This repository is a game for Playdate console
+# Playdate
+This is a pool game with some special rules
