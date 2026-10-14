@@ -1,14 +1,15 @@
-#!/bin/bash
+﻿#!/bin/bash
 set -e
 
 # Variables
-SDK="$HOME/Developer/PlaydateSDK"
+SDK="${PLAYDATE_SDK_PATH:-$HOME/Developer/PlaydateSDK}"
 PROJECT_NAME="test-game.pdx"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 OUTPUT="$PROJECT_DIR/build/$PROJECT_NAME"
 
 # Command
+mkdir -p "$(dirname "$OUTPUT")"
 if "$SDK/bin/pdc" "$PROJECT_DIR/source" "$OUTPUT"; then
   echo "Build completata:"
   echo "$OUTPUT"

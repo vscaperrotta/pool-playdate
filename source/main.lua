@@ -61,6 +61,32 @@ function playdate.update()
       GAME_STATE = 1
     end
   elseif GAME_STATE == 1 then
+    drawTable()
+
+    for _, ball in ipairs(globalState.balls) do
+      ball.x = ball.x + ball.vX
+      ball.y = ball.y + ball.vY
+
+      ball.vX = ball.vX * 0.98
+      ball.vY = ball.vY * 0.98
+      drawBall(ball)
+    end
+
+    local tipX, tipY = drawStick(
+      crankPosition,
+      globalState.stick.x,
+      globalState.stick.y,
+      globalState.stick.loading
+    )
+
+    -- local function tipTouchesBall(tX, tY, ball)
+    --   local dx = tX - ball.x
+    --   local dy = tY - ball.y
+    --   local contactRadius = ball.radius + 4
+
+    --   return dx * dx + dy * dy <= contactRadius * contactRadius
+    -- end
+
     -- Move the stick
     if playdate.buttonIsPressed(BUTTON_UP) then
       globalState.stick.y = globalState.stick.y - globalState.stick.speed
@@ -92,18 +118,5 @@ function playdate.update()
     elseif globalState.stick.loading > 100 then
       GFX.drawText(100, 5, 5)
     end
-
-    drawTable()
-
-    for _, ball in ipairs(globalState.balls) do
-      drawBall(ball)
-    end
-
-    local tipX, tipY = drawStick(
-      crankPosition,
-      globalState.stick.x,
-      globalState.stick.y,
-      globalState.stick.loading
-    )
   end
 end
